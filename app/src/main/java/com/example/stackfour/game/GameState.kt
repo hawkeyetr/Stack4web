@@ -191,4 +191,29 @@ class GameState(
     internal fun forceCurrentPlayer(player: Player) {
         currentPlayer = player
     }
+
+    internal fun loadState(
+        currentPlayer: Player,
+        winner: Player,
+        isDraw: Boolean,
+        boardData: String
+    ) {
+        this.currentPlayer = currentPlayer
+        this.winner = winner
+        this.isDraw = isDraw
+
+        var index = 0
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                for (z in 0 until depth) {
+                    val p = boardData[index++]
+                    board[x][y][z] = when (p) {
+                        '1' -> Player.PLAYER_ONE
+                        '2' -> Player.PLAYER_TWO
+                        else -> Player.NONE
+                    }
+                }
+            }
+        }
+    }
 }
